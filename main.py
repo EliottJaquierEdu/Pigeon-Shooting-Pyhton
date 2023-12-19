@@ -7,8 +7,8 @@ from screen import PyGameScalableGraphScreen
 # Set the height and width of the screen
 graphScreen = PyGameScalableGraphScreen("Tire au pigeon", 1200, 800)
 
-rifle = Rifle("red", 0, 1, 2)
 pigeon = Pigeon("black", 0, 5, 100)
+rifle = Rifle("red", 0, 1, 2)
 
 graphScreen.add_graph_line(pigeon)
 graphScreen.add_graph_line(rifle)
