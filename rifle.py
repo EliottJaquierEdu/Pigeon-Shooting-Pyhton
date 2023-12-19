@@ -1,11 +1,16 @@
 import math
+from abc import ABC
+
+from graph_line import GraphLine
 
 
-class Rifle:
-    start_x = 5
-    start_y = 2
-    speed = 200
-    angle = 30
+class Rifle(GraphLine, ABC):
+    def __init__(self, color, min_time, max_time, samples):
+        super().__init__(color, min_time, max_time, samples)
+        self.start_x = 5
+        self.start_y = 2
+        self.speed = 200
+        self.angle = 30
 
     def x(self, t):
         wait = 0
@@ -15,7 +20,7 @@ class Rifle:
         wait = 0
         return self.start_y + math.sin(math.radians(self.angle)) * self.speed * (t - wait)
 
-    def waitTime(self, ap, vp, xpy):
+    def wait_time(self, ap, vp, xpy):
         ac = math.radians(self.angle)
         vc = self.speed
         xcx = self.start_x
