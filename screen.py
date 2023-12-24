@@ -42,7 +42,7 @@ class PyGameScalableGraphScreen:
             rifle = self.graph_lines[1]
             start_rifle_point = rifle.get_point(0, self.convert_vector_to_screen)
             mousePosition = pygame.mouse.get_pos()
-            mouseRelativePosition = [mousePosition[0] - start_rifle_point[0],mousePosition[1] - start_rifle_point[1]]
+            mouseRelativePosition = [mousePosition[0] - start_rifle_point[0], mousePosition[1] - start_rifle_point[1]]
             angle = -math.atan2(mouseRelativePosition[1], mouseRelativePosition[0])
             rifle.angle = math.degrees(angle)
             if rifle.angle < 0:
@@ -58,6 +58,22 @@ class PyGameScalableGraphScreen:
 
             self.force_lines_refresh = False
 
+            pygame.draw.line(self.screen, "black", [self.offset[0], 0], [self.offset[0], self.height], 1)
+            pygame.draw.line(self.screen, "black", [0, self.height + self.offset[1]],
+                             [self.width, self.height + self.offset[1]], 1)
+
+            mantissa = self.graph_size;
+            while mantissa > 10:
+                mantissa /= 10
+            while mantissa < 1:
+                mantissa *= 10
+            mantissa = mantissa * 10
+            draw_count = int(self.width / mantissa)
+            offset_count = int(self.offset[0] / mantissa)
+            for i in range(-offset_count,draw_count+1-offset_count):
+                pygame.draw.line(self.screen, "blue" if (i%10==0) else "black",
+                                 [self.offset[0] + i * (mantissa), -10 + self.height + self.offset[1]],
+                                 [self.offset[0] + i * (mantissa), 10 + self.height + self.offset[1]], 3 if (i%10==0) else 1)
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.
             pygame.display.flip()
