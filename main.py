@@ -5,7 +5,7 @@ from rifle import Rifle
 from screen import PyGameScalableGraphScreen
 
 # Set the height and width of the screen
-graphScreen = PyGameScalableGraphScreen("Tire au pigeon", 1200, 800)
+graphScreen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900)
 
 pigeon = Pigeon("black", 0, 5, 100)
 rifle = Rifle("red", 0, 1, 2)
