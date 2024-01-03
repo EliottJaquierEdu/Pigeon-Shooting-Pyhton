@@ -3,7 +3,7 @@ from abc import ABC
 
 import pygame
 
-from steps.place_rifle_step import PlaceRifleStep
+from steps.angle_pigeon_step import AnglePigeonStep
 from steps.step import Step
 
 
@@ -13,7 +13,7 @@ class SpeedPigeonStep(Step, ABC):
         self.is_valid = False
 
     def next_step(self):
-        return PlaceRifleStep()
+        return AnglePigeonStep()
 
     def update(self, screen, mouse_position, rifle, pigeon):
         if self.is_done:
@@ -34,4 +34,4 @@ class SpeedPigeonStep(Step, ABC):
             self._is_done = True
 
     def step_description(self):
-        return "Changez la vitesse du pigeon"
+        return "Changez la vitesse du pigeon avec votre souris et valider la vitesse avec un click droit"

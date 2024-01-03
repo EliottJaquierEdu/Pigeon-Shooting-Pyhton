@@ -31,4 +31,4 @@ class PlaceRifleStep(Step, ABC):
             self._is_done = True
 
     def step_description(self):
-        return "Placez le fusil avec un click droit (déplacez-vous avec un click gauche et zoomez avec la molette)"
+        return "Placez le fusil (il doit être en dessous du pigeon)"

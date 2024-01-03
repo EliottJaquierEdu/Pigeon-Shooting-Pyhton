@@ -31,4 +31,4 @@ class AngleRifleStep(Step, ABC):
 
 
     def step_description(self):
-        return "Choissisez l'angle du tir puis validez avec un click droit"
+        return "Choissisez l'angle du tir"

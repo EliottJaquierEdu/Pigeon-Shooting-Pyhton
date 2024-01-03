@@ -3,13 +3,13 @@ from abc import ABC
 
 import pygame
 
-from steps.speed_pigeon_step import SpeedPigeonStep
+from steps.place_rifle_step import PlaceRifleStep
 from steps.step import Step
 
 
 class AnglePigeonStep(Step, ABC):
     def next_step(self):
-        return SpeedPigeonStep()
+        return PlaceRifleStep()
 
     def update(self, screen, mouse_position, rifle, pigeon):
         if self.is_done:
