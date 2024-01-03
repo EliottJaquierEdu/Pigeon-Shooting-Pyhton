@@ -43,18 +43,11 @@ class GameManager:
 
     def update(self):
         mouse_position = pygame.mouse.get_pos()
-        self.step.update(self.screen, mouse_position, self.rifle, self.pigeon)
+        self.step.update(self.screen, mouse_position, self.get_playtime(), self.rifle, self.pigeon)
         if self.step.is_done and (self.step.next_step() is not None):
             self.step.next_step().previous_step = self.step
             self.step = self.step.next_step()
             self.hud.step = self.step
-        # self.update_time_with_mouse(mouse_position_vector_space)
-
-    def update_time_with_mouse(self, mouse_position_vector_space):
-        time = self.pigeon.t(mouse_position_vector_space[0])
-        self.rifle.play_audio(time, self.get_playtime())
-        self.pigeon.draw_image_representation(self.screen.screen, time, self.rifle.shoot_t,
-                                              self.screen.convert_vector_to_screen)
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:  # If user clicked close

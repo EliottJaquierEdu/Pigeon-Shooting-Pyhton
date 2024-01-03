@@ -11,7 +11,7 @@ class AnglePigeonStep(Step, ABC):
     def next_step(self):
         return PlaceRifleStep()
 
-    def update(self, screen, mouse_position, rifle, pigeon):
+    def update(self, screen, mouse_position, time, rifle, pigeon):
         if self.is_done:
             return
         start_pigeon_point = pigeon.get_point(0, screen.convert_vector_to_screen)

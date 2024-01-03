@@ -15,7 +15,7 @@ class SpeedPigeonStep(Step, ABC):
     def next_step(self):
         return AnglePigeonStep()
 
-    def update(self, screen, mouse_position, rifle, pigeon):
+    def update(self, screen, mouse_position, time, rifle, pigeon):
         if self.is_done:
             return
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)

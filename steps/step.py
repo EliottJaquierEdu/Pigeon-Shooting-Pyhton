@@ -7,7 +7,7 @@ class Step:
         self.previous_step = None
 
     @abstractmethod
-    def update(self, screen, mouse_position, rifle, pigeon):
+    def update(self, screen, mouse_position, time, rifle, pigeon):
         pass
 
     @abstractmethod

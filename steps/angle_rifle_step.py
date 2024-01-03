@@ -3,6 +3,7 @@ from abc import ABC
 
 import pygame
 
+from steps.simlulate_time_with_mouse_step import SimulateTimeWithMouseStep
 from steps.step import Step
 
 
@@ -12,9 +13,9 @@ class AngleRifleStep(Step, ABC):
         self.is_valid = False
 
     def next_step(self):
-        return None
+        return SimulateTimeWithMouseStep()
 
-    def update(self, screen, mouse_position, rifle, pigeon):
+    def update(self, screen, mouse_position, time, rifle, pigeon):
         if self.is_done:
             return
         start_rifle_point = rifle.get_point(rifle.shoot_t, screen.convert_vector_to_screen)

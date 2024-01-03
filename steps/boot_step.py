@@ -18,7 +18,7 @@ class BootStep(Step, ABC):
     def next_step(self):
         return SpeedPigeonStep()
 
-    def update(self, screen, mouse_position, rifle, pigeon):
+    def update(self, screen, mouse_position, time, rifle, pigeon):
         if self.is_done:
             return
 
