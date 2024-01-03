@@ -7,6 +7,7 @@ from hud import HUD
 from pigeon import Pigeon
 from rifle import Rifle
 from screen import PyGameScalableGraphScreen
+from steps.angle_pigeon_step import AnglePigeonStep
 from steps.place_rifle_step import PlaceRifleStep
 
 
@@ -16,7 +17,7 @@ class GameManager:
         pygame.font.init()
         self.clock = pygame.time.Clock()
         self.done = False
-        self.step = PlaceRifleStep()
+        self.step = AnglePigeonStep()
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 
