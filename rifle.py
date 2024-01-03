@@ -7,8 +7,8 @@ from object_graph_line import ObjectGraphLine
 
 
 class Rifle(ObjectGraphLine, ABC):
-    def __init__(self, color, samples):
-        super().__init__(color, 0, 1, samples)
+    def __init__(self, color, line_width,  samples):
+        super().__init__(color, line_width, 0, 1, samples)
         self.start_x = 5
         self.start_y = 2
         self.speed = 200

@@ -8,8 +8,8 @@ from object_graph_line import ObjectGraphLine
 
 
 class Pigeon(ObjectGraphLine, ABC):
-    def __init__(self, color, min_time, max_time, samples):
-        super().__init__(color, min_time, max_time, samples)
+    def __init__(self, color, line_width, min_time, max_time, samples):
+        super().__init__(color, line_width, min_time, max_time, samples)
         self.start_x = 0
         self.start_y = 1
         self.speed = 20

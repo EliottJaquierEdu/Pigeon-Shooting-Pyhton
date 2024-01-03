@@ -2,11 +2,11 @@ import pygame.draw
 
 
 class GraphAxis:
-    def __init__(self, name, unit, color, text_size, is_vertical):
+    def __init__(self, name, unit, color, washed_color, text_size, is_vertical):
         self.name = name
         self.unit = unit
         self.color = color
-        self.washed_color = pygame.Color(89, 120, 180)
+        self.washed_color = washed_color
         self.is_vertical = is_vertical
         self.font = pygame.font.SysFont('Open Sans', text_size)
         self.line_width = 1
@@ -37,7 +37,7 @@ class GraphAxis:
                 number = -number
             if number == int(number):
                 number = int(number)
-            text_surface = self.font.render(str(number), False, self.color)
+            text_surface = self.font.render(str(number), True, self.color)
             surface.blit(text_surface,
                          [x_offset + 10, y_offset - 10 + screen_height + i * mantissa] if self.is_vertical else
                          [x_offset + i * mantissa - 5, -30 + screen_height + y_offset])

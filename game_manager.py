@@ -3,6 +3,7 @@ import math
 import pygame
 
 from graph_axis import GraphAxis
+from hud import HUD
 from pigeon import Pigeon
 from rifle import Rifle
 from screen import PyGameScalableGraphScreen
@@ -15,24 +16,26 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.done = False
 
-        self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900)
+        self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 
-        self.pigeon = Pigeon("black", 0, 5, 100)
-        self.rifle = Rifle("red", 2)
+        self.pigeon = Pigeon("black", 5, 0, 5, 100)
+        self.rifle = Rifle("red", 5, 2)
+        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12), pygame.Color(90, 130, 190))
 
         self.screen.add_graph_line(self.pigeon)
         self.screen.add_graph_line(self.rifle)
+        self.screen.add_ui(self.hud)
 
-        self.screen.add_axe(GraphAxis("width", "meters", "black", 25, False))
-        self.screen.add_axe(GraphAxis("height", "meters", "black", 25, True))
+        self.screen.add_axe(GraphAxis("width", "meters", "black", pygame.Color(89, 120, 180), 25, False))
+        self.screen.add_axe(GraphAxis("height", "meters", "black", pygame.Color(89, 120, 180), 25, True))
 
     def start(self):
         while not self.done:
             for event in pygame.event.get():  # User did something
                 self.handle_event(event)
-            self.screen.render()
+            self.screen.clear()
             self.update()
-            pygame.display.flip()
+            self.screen.render()
         pygame.quit()
 
     def update(self):

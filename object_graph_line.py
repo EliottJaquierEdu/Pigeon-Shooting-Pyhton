@@ -5,11 +5,12 @@ from object_by_time import ObjectByTime
 
 
 class ObjectGraphLine(ObjectByTime, ABC):
-    def __init__(self, color, min_time, max_time, samples):
+    def __init__(self, color, line_width, min_time, max_time, samples):
         self._min_time = min_time
         self._max_time = max_time
         self._samples = samples
         self.color = color
+        self.line_width = line_width
 
         self._cached_line_points = []
         self._need_refresh = True

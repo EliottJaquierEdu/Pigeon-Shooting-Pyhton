@@ -3,15 +3,18 @@ from pygame.locals import *
 
 
 class PyGameScalableGraphScreen:
-    def __init__(self, caption, width, height, initial_graph_size=30):
+    def __init__(self, caption, width, height, background_color, initial_graph_size=30):
         self.width = width
         self.height = height
+        self.background_color = background_color
 
         self.screen = pygame.display.set_mode([width, height], RESIZABLE)
         pygame.display.set_caption(caption)
 
         self.graph_lines = []
         self.axes = []
+        self.ui = []
+
         self.force_lines_refresh = False
         self.dragging = False
         self.graph_size = initial_graph_size
@@ -27,19 +30,20 @@ class PyGameScalableGraphScreen:
     def add_graph_line(self, graph_line):
         self.graph_lines.append(graph_line)
 
+    def add_ui(self, ui):
+        self.ui.append(ui)
+
     def add_axe(self,axe):
         self.axes.append(axe)
 
-    def render(self):
-        # Clear the screen and set the screen background
-        self.screen.fill(pygame.Color(100, 150, 200))
+    def clear(self):
+        self.screen.fill(self.background_color)
 
+    def render(self):
         for graph_line in self.graph_lines:
             lines = graph_line.get_lines(self.convert_vector_to_screen, self.force_lines_refresh)
-            pygame.draw.lines(
-                self.screen, graph_line.color, False, lines, 5
-            )
-            for i in range(10):
+            pygame.draw.lines(self.screen, graph_line.color, False, lines, graph_line.line_width)
+            for i in range(5):
                 pygame.draw.circle(self.screen, "blue", graph_line.get_point(i, self.convert_vector_to_screen), 7)
 
         self.force_lines_refresh = False
@@ -48,6 +52,11 @@ class PyGameScalableGraphScreen:
 
         for axe in self.axes:
             axe.draw(self.screen, self.width, self.height, self.offset[0], self.offset[1], infos[0], infos[1])
+
+        for ui in self.ui:
+            ui.draw(self.screen, self.width, self.height)
+
+        pygame.display.flip()
 
     def get_chunks_resolution_infos(self):
         mantissa = self.graph_size
