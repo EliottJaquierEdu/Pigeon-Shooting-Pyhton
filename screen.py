@@ -25,7 +25,7 @@ class PyGameScalableGraphScreen:
         return [vector[0] * self.graph_size + self.offset[0], self.height - vector[1] * self.graph_size + self.offset[1]]
 
     def convert_screen_to_vector(self, screen_vector):
-        return [(screen_vector[0] - self.offset[0]) / self.graph_size, (screen_vector[1] - self.offset[1]) / self.graph_size]
+        return [(screen_vector[0] - self.offset[0]) / self.graph_size, ((self.height-screen_vector[1]) + self.offset[1]) / self.graph_size]
 
     def add_graph_line(self, graph_line):
         self.graph_lines.append(graph_line)

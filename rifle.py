@@ -14,7 +14,7 @@ class Rifle(ObjectGraphLine, ABC):
         self.speed = 200
         self.angle = 30
 
-        self.shoot_t = 1.5
+        self.shoot_t = 0
         self.last_t = 0
         self.last_raw_game_time = 0
         pygame.mixer.init(frequency=44100)

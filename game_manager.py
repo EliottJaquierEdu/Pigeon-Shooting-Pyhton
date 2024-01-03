@@ -7,6 +7,7 @@ from hud import HUD
 from pigeon import Pigeon
 from rifle import Rifle
 from screen import PyGameScalableGraphScreen
+from steps.place_rifle_step import PlaceRifleStep
 
 
 class GameManager:
@@ -15,12 +16,14 @@ class GameManager:
         pygame.font.init()
         self.clock = pygame.time.Clock()
         self.done = False
+        self.step = PlaceRifleStep()
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 
         self.pigeon = Pigeon("black", 5, 0, 5, 100)
         self.rifle = Rifle("red", 5, 2)
-        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12), pygame.Color(90, 130, 190))
+        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
+                       pygame.Color(90, 130, 190), self.step)
 
         self.screen.add_graph_line(self.pigeon)
         self.screen.add_graph_line(self.rifle)
@@ -40,9 +43,12 @@ class GameManager:
 
     def update(self):
         mouse_position = pygame.mouse.get_pos()
-        mouse_position_vector_space = self.screen.convert_screen_to_vector(mouse_position)
-        self.update_rifle_angle_setup(mouse_position)
-        self.update_time_with_mouse(mouse_position_vector_space)
+        mouse_buttons = pygame.mouse.get_pressed()
+        self.step.update(self.screen, mouse_position, mouse_buttons, self.rifle, self.pigeon)
+        if self.step.is_done and (self.step.next_step() is not None):
+            self.step = self.step.next_step()
+        # self.update_rifle_angle_setup(mouse_position)
+        # self.update_time_with_mouse(mouse_position_vector_space)
 
     def update_rifle_angle_setup(self, mouse_position):
         start_rifle_point = self.rifle.get_point(self.rifle.shoot_t, self.screen.convert_vector_to_screen)
