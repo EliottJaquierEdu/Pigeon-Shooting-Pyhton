@@ -43,21 +43,12 @@ class GameManager:
 
     def update(self):
         mouse_position = pygame.mouse.get_pos()
-        mouse_buttons = pygame.mouse.get_pressed()
-        self.step.update(self.screen, mouse_position, mouse_buttons, self.rifle, self.pigeon)
+        self.step.update(self.screen, mouse_position, self.rifle, self.pigeon)
         if self.step.is_done and (self.step.next_step() is not None):
+            self.step.next_step().previous_step = self.step
             self.step = self.step.next_step()
-        # self.update_rifle_angle_setup(mouse_position)
+            self.hud.step = self.step
         # self.update_time_with_mouse(mouse_position_vector_space)
-
-    def update_rifle_angle_setup(self, mouse_position):
-        start_rifle_point = self.rifle.get_point(self.rifle.shoot_t, self.screen.convert_vector_to_screen)
-
-        mouse_relative_position = [mouse_position[0] - start_rifle_point[0], mouse_position[1] - start_rifle_point[1]]
-        angle = -math.atan2(mouse_relative_position[1], mouse_relative_position[0])
-        self.rifle.angle = math.degrees(angle)
-        if self.rifle.angle < 0:
-            self.rifle.angle = 180 if self.rifle.angle < -90 else 0
 
     def update_time_with_mouse(self, mouse_position_vector_space):
         time = self.pigeon.t(mouse_position_vector_space[0])
@@ -68,8 +59,9 @@ class GameManager:
     def handle_event(self, event):
         if event.type == pygame.QUIT:  # If user clicked close
             self.done = True  # Flag that we are done so we exit this loop
-        else:
-            self.screen.handle_event(event)
+
+        self.step.handle_event(event)
+        self.screen.handle_event(event)
 
     def get_playtime(self):
         return pygame.time.get_ticks() / 1000.0

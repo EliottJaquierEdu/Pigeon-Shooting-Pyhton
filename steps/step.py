@@ -4,17 +4,18 @@ from abc import abstractmethod
 class Step:
     def __init__(self):
         self._is_done = False
+        self.previous_step = None
 
     @abstractmethod
-    def update(self, screen, mouse_position, mouse_buttons, rifle, pigeon):
+    def update(self, screen, mouse_position, rifle, pigeon):
+        pass
+
+    @abstractmethod
+    def handle_event(self, event):
         pass
 
     @abstractmethod
     def step_description(self):
-        pass
-
-    @abstractmethod
-    def previous_step(self):
         pass
 
     @abstractmethod
