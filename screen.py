@@ -3,7 +3,7 @@ import math
 import pygame
 from pygame.locals import *
 
-from graph_line import GraphLine
+from object_graph_line import ObjectGraphLine
 
 
 class PyGameScalableGraphScreen:
@@ -41,14 +41,22 @@ class PyGameScalableGraphScreen:
             # Clear the screen and set the screen background
             self.screen.fill(pygame.Color(100, 150, 200))
 
+            pigeon = self.graph_lines[0]
             rifle = self.graph_lines[1]
             start_rifle_point = rifle.get_point(0, self.convert_vector_to_screen)
             mousePosition = pygame.mouse.get_pos()
+
             mouseRelativePosition = [mousePosition[0] - start_rifle_point[0], mousePosition[1] - start_rifle_point[1]]
             angle = -math.atan2(mouseRelativePosition[1], mouseRelativePosition[0])
             rifle.angle = math.degrees(angle)
             if rifle.angle < 0:
                 rifle.angle = 180 if rifle.angle < -90 else 0
+
+            mouseRelativePositionFromZeros = [(mousePosition[0] - self.offset[0])/self.graph_size, (mousePosition[1] - self.offset[1])/self.graph_size]
+            time = pigeon.t(mouseRelativePositionFromZeros[0])
+            gameTime = pygame.time.get_ticks() / 1000.0
+            rifle.play_audio(time, gameTime)
+            pigeon.draw_image_representation(self.screen, time, rifle.shoot_t, self.convert_vector_to_screen)
 
             for graph_line in self.graph_lines:
                 lines = graph_line.get_lines(self.convert_vector_to_screen, self.force_lines_refresh)
@@ -105,6 +113,7 @@ class PyGameScalableGraphScreen:
                 self.screen.blit(text_surface,
                                  [self.offset[0] + 10, self.offset[1] - 10 + self.height + i * (mantissa)])
 
+            # print(rifle.wait_time(-9.81, self.graph_lines[0].speed, self.graph_lines[0].start_y))
             # Go ahead and update the screen with what we've drawn.
             # This MUST happen after all the other drawing commands.
             pygame.display.flip()

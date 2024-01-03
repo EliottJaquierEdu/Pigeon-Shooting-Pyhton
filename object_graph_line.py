@@ -1,9 +1,10 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 
 import utils
+from object_by_time import ObjectByTime
 
 
-class GraphLine:
+class ObjectGraphLine(ObjectByTime, ABC):
     def __init__(self, color, min_time, max_time, samples):
         self._min_time = min_time
         self._max_time = max_time
@@ -40,14 +41,6 @@ class GraphLine:
         self._samples = new_samples
         self._need_refresh = True
 
-    @abstractmethod
-    def x(self, t):
-        pass
-
-    @abstractmethod
-    def y(self, t):
-        pass
-
     def get_point(self, t, space_conversion_fn):
         return space_conversion_fn([self.x(t), self.y(t)])
 
@@ -57,7 +50,7 @@ class GraphLine:
             return self._cached_line_points
 
         self._cached_line_points.clear()
-        for i in range(self._samples+1):
+        for i in range(self._samples + 1):
             percentage = i / self._samples
             time = utils.lerp(self._min_time, self._max_time, percentage)
             point = self.get_point(time, space_conversion_fn)
