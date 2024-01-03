@@ -25,7 +25,7 @@ class ObjectGraphLine(ObjectByTime, ABC):
 
     @property
     def max_time(self):
-        return self._min_time
+        return self._max_time
 
     @max_time.setter
     def max_time(self, new_max_time):

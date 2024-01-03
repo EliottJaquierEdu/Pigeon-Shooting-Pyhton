@@ -13,13 +13,13 @@ class PyGameScalableGraphScreen:
 
         pygame.init()
         pygame.font.init()
-        self.font = pygame.font.SysFont('Open Sans', 25)
         self.screen = pygame.display.set_mode([width, height], RESIZABLE)
         pygame.display.set_caption(caption)
         self.done = False
         self.clock = pygame.time.Clock()
 
         self.graph_lines = []
+        self.axes = []
         self.force_lines_refresh = False
         self.dragging = False
         self.graph_size = initial_graph_size
@@ -33,6 +33,9 @@ class PyGameScalableGraphScreen:
     def add_graph_line(self, graph_line):
         self.graph_lines.append(graph_line)
 
+    def add_axe(self,axe):
+        self.axes.append(axe)
+
     def update(self):
         while not self.done:
             for event in pygame.event.get():  # User did something
@@ -43,7 +46,7 @@ class PyGameScalableGraphScreen:
 
             pigeon = self.graph_lines[0]
             rifle = self.graph_lines[1]
-            start_rifle_point = rifle.get_point(0, self.convert_vector_to_screen)
+            start_rifle_point = rifle.get_point(rifle.shoot_t, self.convert_vector_to_screen)
             mousePosition = pygame.mouse.get_pos()
 
             mouseRelativePosition = [mousePosition[0] - start_rifle_point[0], mousePosition[1] - start_rifle_point[1]]
@@ -68,58 +71,27 @@ class PyGameScalableGraphScreen:
 
             self.force_lines_refresh = False
 
-            pygame.draw.line(self.screen, "black", [self.offset[0], 0], [self.offset[0], self.height], 1)
-            pygame.draw.line(self.screen, "black", [0, self.height + self.offset[1]],
-                             [self.width, self.height + self.offset[1]], 1)
+            infos = self.get_chunks_resolution_infos()
 
-            mantissa = self.graph_size
-            mantissa = mantissa / 3
-            multiplier = 1
-            while mantissa > 10:
-                mantissa /= 10
-                multiplier *= 10
-            while mantissa < 1:
-                mantissa *= 10
-                multiplier /= 10
-            mantissa = mantissa * 3
-            mantissa = mantissa * 10
-            lines_width = 20
+            for axe in self.axes:
+                axe.draw(self.screen, self.width, self.height, self.offset[0], self.offset[1], infos[0], infos[1])
 
-            draw_count = int(self.width / mantissa)
-            offset_count = int(self.offset[0] / mantissa)
-            for i in range(-offset_count, draw_count + 1 - offset_count):
-                pygame.draw.line(self.screen, "black" if (i % 10 == 0) else pygame.Color(89, 120, 180),
-                                 [self.offset[0] + i * (mantissa), -self.height],
-                                 [self.offset[0] + i * (mantissa), self.height], 1)
-                pygame.draw.line(self.screen, "black",
-                                 [self.offset[0] + i * (mantissa), -lines_width + self.height + self.offset[1]],
-                                 [self.offset[0] + i * (mantissa), lines_width + self.height + self.offset[1]],
-                                 3 if (i % 10 == 0) else 1)
-                text_surface = self.font.render(str(i*10/multiplier), False, (0, 0, 0))
-                self.screen.blit(text_surface,
-                                 [self.offset[0] + i * (mantissa) - 5, -30 + self.height + self.offset[1]])
-
-            draw_count = int(self.height / mantissa)
-            offset_count = int((self.offset[1] + self.height) / mantissa)
-            for i in range(-offset_count, draw_count + 1 - offset_count):
-                pygame.draw.line(self.screen, "black" if (i % 10 == 0) else pygame.Color(89, 120, 180),
-                                 [-self.width, self.offset[1] + self.height + i * (mantissa)],
-                                 [self.width, self.offset[1] + self.height + i * (mantissa)], 1)
-                pygame.draw.line(self.screen, "black",
-                                 [self.offset[0] - lines_width, self.offset[1] + self.height + i * (mantissa)],
-                                 [self.offset[0] + lines_width, self.offset[1] + self.height + i * (mantissa)],
-                                 3 if (i % 10 == 0) else 1)
-                text_surface = self.font.render(str(-i*10/multiplier), False, (0, 0, 0))
-                self.screen.blit(text_surface,
-                                 [self.offset[0] + 10, self.offset[1] - 10 + self.height + i * (mantissa)])
-
-            # print(rifle.wait_time(-9.81, self.graph_lines[0].speed, self.graph_lines[0].start_y))
-            # Go ahead and update the screen with what we've drawn.
-            # This MUST happen after all the other drawing commands.
             pygame.display.flip()
 
-        # Be IDLE friendly
         pygame.quit()
+
+    def get_chunks_resolution_infos(self):
+        mantissa = self.graph_size
+        mantissa = mantissa / 3
+        multiplier = 1
+        while mantissa > 10:
+            mantissa /= 10
+            multiplier *= 10
+        while mantissa < 1:
+            mantissa *= 10
+            multiplier /= 10
+        mantissa = mantissa * 3
+        return [mantissa * 10, multiplier]
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:  # If user clicked close

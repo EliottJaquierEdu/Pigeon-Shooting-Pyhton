@@ -7,8 +7,8 @@ from object_graph_line import ObjectGraphLine
 
 
 class Rifle(ObjectGraphLine, ABC):
-    def __init__(self, color, min_time, max_time, samples):
-        super().__init__(color, min_time, max_time, samples)
+    def __init__(self, color, samples):
+        super().__init__(color, 0, 1, samples)
         self.start_x = 5
         self.start_y = 2
         self.speed = 200
@@ -46,6 +46,11 @@ class Rifle(ObjectGraphLine, ABC):
                 self.newsnd.play()
 
         self.last_t = t
+
+    def get_lines(self, space_conversion_fn, force_refresh=False):
+        self.min_time = self.shoot_t
+        self.max_time = self.shoot_t + 1
+        return super().get_lines(space_conversion_fn, force_refresh)
 
     def wait_time(self, ap, vp, xpy):
         ac = math.radians(self.angle)
