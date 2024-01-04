@@ -33,15 +33,15 @@ class Rifle(ObjectGraphLine, ABC):
             t = self.wait_time
         return super().get_point(t,space_conversion_fn)
 
-    def play_audio(self, t, raw_game_time):
+    def play_audio(self, t, raw_game_time, sample_rate):
         deltaTime = raw_game_time - self.last_raw_game_time
         t = t - self.wait_time
         if (t == self.last_t): return
 
         if (t > 0) and (t < self.shoot_audio.get_length()):
-            sample = 0.05
+            sample = 1/sample_rate
             if (deltaTime > sample):
-                self.last_raw_game_time = self.last_raw_game_time + sample
+                self.last_raw_game_time = raw_game_time
 
                 offset = int(t * 44100) if t > self.last_t else int((self.shoot_audio_inv.get_length() - t) * 44100)
                 duration = offset + int(44100 * (sample + 0.01))
