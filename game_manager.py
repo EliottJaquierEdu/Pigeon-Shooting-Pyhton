@@ -8,6 +8,7 @@ from pigeon import Pigeon
 from rifle import Rifle
 from screen import PyGameScalableGraphScreen
 from steps.boot_step import BootStep
+from steps.simlulate_time_with_mouse_step import SimulateTimeWithMouseStep
 
 
 class GameManager:
@@ -16,7 +17,7 @@ class GameManager:
         pygame.font.init()
         self.clock = pygame.time.Clock()
         self.done = False
-        self.step = BootStep()
+        self.step = SimulateTimeWithMouseStep()
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 

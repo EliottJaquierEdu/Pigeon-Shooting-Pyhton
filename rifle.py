@@ -28,6 +28,11 @@ class Rifle(ObjectGraphLine, ABC):
     def y(self, t):
         return self.start_y + math.sin(math.radians(self.angle)) * self.speed * (t - self.wait_time)
 
+    def get_point(self, t, space_conversion_fn):
+        if t < self.wait_time:
+            t = self.wait_time
+        return super().get_point(t,space_conversion_fn)
+
     def play_audio(self, t, raw_game_time):
         deltaTime = raw_game_time - self.last_raw_game_time
         t = t - self.wait_time
