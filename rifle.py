@@ -121,4 +121,4 @@ class Rifle(ObjectGraphLine, ABC):
         points = self.get_point(t, space_conversion_fn)
         points[0] = points[0] - (self.image.get_width() / 2)
         points[1] = points[1] - (self.image.get_height() / 2)
-        display.blit(self.image, points)
+        display.blit(pygame.transform.rotate(self.image, self.angle-90), points)
