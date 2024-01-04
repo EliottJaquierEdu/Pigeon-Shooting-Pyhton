@@ -1,10 +1,8 @@
 from abc import abstractmethod, ABC
 
 import utils
-from object_by_time import ObjectByTime
 
-
-class ObjectGraphLine(ObjectByTime, ABC):
+class ObjectGraphLine(ABC):
     def __init__(self, color, line_width, min_time, max_time, samples):
         self._min_time = min_time
         self._max_time = max_time

@@ -14,7 +14,7 @@ class Pigeon(ObjectGraphLine, ABC):
         self.start_y = 1
         self.speed = 20
         self.angle = 60
-        self.mass = 0.1
+        self.acceleration = -9.81
 
         self.image = pygame.image.load("res/pigeonArgile.png")
         self.image_fragments = []
@@ -25,10 +25,11 @@ class Pigeon(ObjectGraphLine, ABC):
         return self.start_x + math.cos(math.radians(self.angle)) * self.speed * t
 
     def y(self, t):
-        return self.start_y + math.sin(math.radians(self.angle)) * self.speed * t - (9.81 / 2) * math.pow(t, 2)
+        return self.start_y + math.sin(math.radians(self.angle)) * self.speed * t + (self.acceleration / 2) * math.pow(t, 2)
 
     def get_point(self, t, space_conversion_fn, x_offset=0, y_offset=0):
-        if (t < 0): t = 0
+        if t < 0:
+            t = 0
 
         x = self.x(t) + x_offset
         y = self.y(t) + y_offset
@@ -38,7 +39,9 @@ class Pigeon(ObjectGraphLine, ABC):
             zeros = self.time_when_zeros(y_offset)
             time_when_landed = max(zeros[0], zeros[1])
             new_x = self.x(time_when_landed) + x_offset
-            x = math.log2((x - new_x) + 1) + new_x
+            removed_from_x = (x - new_x)
+            if removed_from_x > 0:
+                x = math.log2(removed_from_x + 1) + new_x
             y = 0
         return space_conversion_fn([x, y])
 

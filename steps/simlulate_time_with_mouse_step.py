@@ -19,7 +19,10 @@ class SimulateTimeWithMouseStep(Step, ABC):
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)
         time = pigeon.t(mouse_position_vector_space[0])
         rifle.play_audio(time, playtime)
-        pigeon.draw_image_representation(screen.screen, time, rifle.shoot_t,screen.convert_vector_to_screen)
+        intersecting_time = rifle.time_intersecting_with_pigeon(pigeon)
+        rifle.wait_time = rifle.waiting_time_to_intersect(pigeon)
+        pigeon.draw_image_representation(screen.screen, time, intersecting_time, screen.convert_vector_to_screen)
+        rifle.draw_image_representation(screen.screen, time, screen.convert_vector_to_screen)
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:

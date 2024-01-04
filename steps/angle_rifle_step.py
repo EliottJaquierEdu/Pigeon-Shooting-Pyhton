@@ -18,7 +18,7 @@ class AngleRifleStep(Step, ABC):
     def update(self, screen, mouse_position, time, rifle, pigeon):
         if self.is_done:
             return
-        start_rifle_point = rifle.get_point(rifle.shoot_t, screen.convert_vector_to_screen)
+        start_rifle_point = rifle.get_point(rifle.wait_time, screen.convert_vector_to_screen)
 
         mouse_relative_position = [mouse_position[0] - start_rifle_point[0], mouse_position[1] - start_rifle_point[1]]
         angle = -math.atan2(mouse_relative_position[1], mouse_relative_position[0])
