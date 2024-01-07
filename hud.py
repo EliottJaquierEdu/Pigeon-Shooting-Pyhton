@@ -16,7 +16,10 @@ class HUD:
         pygame.draw.rect(surface, self.background_color, Rect(0, 0, width, 48 + 24))
         center = width / 2
         self.draw_text(surface, self.title_font, self.title, self.title_color, center, 12)
-        self.draw_text(surface, self.text_font, self.step.step_description(), self.text_color, center, 48)
+        self.step.on_hud(surface, width, height, self.draw_primary_text)
+
+    def draw_primary_text(self, surface, title, x, y, alignment=0.5):
+        self.draw_text(surface, self.text_font, title, self.text_color, x, y, alignment)
 
     def draw_text(self, surface, font, title, color, x, y, alignment=0.5):
         text_size = font.size(title)

@@ -7,28 +7,28 @@ from steps.step import Step
 
 
 class PlaceRifleStep(Step, ABC):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rifle, pigeon):
+        super().__init__(rifle, pigeon)
         self.is_valid = False
 
     def next_step(self):
-        return AngleRifleStep()
+        return AngleRifleStep(self.rifle, self.pigeon)
 
-    def update(self, screen, mouse_position, time, rifle, pigeon):
+    def update(self, screen, mouse_position, time):
         if self.is_done:
             return
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)
-        rifle.start_x = mouse_position_vector_space[0]
-        rifle.start_y = mouse_position_vector_space[1]
+        self.rifle.start_x = mouse_position_vector_space[0]
+        self.rifle.start_y = mouse_position_vector_space[1]
 
-        max_height = pigeon.y(pigeon.t(rifle.start_x))
-        self.is_valid = max_height > rifle.start_y > 0 and rifle.start_x > 0
+        max_height = self.pigeon.y(self.pigeon.t(self.rifle.start_x))
+        self.is_valid = max_height > self.rifle.start_y > 0 and self.rifle.start_x > 0
 
-        rifle.color = "Black" if self.is_valid else "Red"
+        self.rifle.color = "Black" if self.is_valid else "Red"
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:
             self._is_done = True
 
     def step_description(self):
-        return "Placez le fusil (il doit être en dessous du pigeon)"
+        return "Placez le fusil en dessous du pigeon (x : "+str(round(self.rifle.start_x, 1))+" m  y : "+str(round(self.rifle.start_y, 1))+" m)"

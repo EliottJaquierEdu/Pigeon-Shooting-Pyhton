@@ -17,22 +17,23 @@ class GameManager:
         pygame.font.init()
         self.clock = pygame.time.Clock()
         self.done = False
-        self.step = SimulateTimeWithMouseStep()
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 
         self.pigeon = Pigeon("black", 5, 0, 5, 100)
         self.rifle = Rifle("red", 5, 2)
-        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
-                       pygame.Color(90, 130, 190), self.step)
 
         self.screen.add_graph_line(self.pigeon)
         self.screen.add_graph_line(self.rifle)
-        self.screen.add_ui(self.hud)
 
         self.screen.add_axe(GraphAxis("width", "meters", "black", pygame.Color(89, 120, 180), 25, False))
         self.screen.add_axe(GraphAxis("height", "meters", "black", pygame.Color(89, 120, 180), 25, True))
 
+        self.step = BootStep(self.rifle, self.pigeon)
+
+        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
+                       pygame.Color(90, 130, 190), self.step)
+        self.screen.add_ui(self.hud)
     def start(self):
         while not self.done:
             for event in pygame.event.get():  # User did something
@@ -44,7 +45,7 @@ class GameManager:
 
     def update(self):
         mouse_position = pygame.mouse.get_pos()
-        self.step.update(self.screen, mouse_position, self.get_playtime(), self.rifle, self.pigeon)
+        self.step.update(self.screen, mouse_position, self.get_playtime())
         if self.step.is_done and (self.step.next_step() is not None):
             self.step.next_step().previous_step = self.step
             self.step = self.step.next_step()

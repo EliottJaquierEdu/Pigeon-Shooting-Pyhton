@@ -7,8 +7,8 @@ from steps.step import Step
 
 
 class BootStep(Step, ABC):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rifle, pigeon):
+        super().__init__(rifle, pigeon)
         self.lines = [
             "Bienvenue sur ce programme de tir au pigeon d'argile! Passez à l'étape suivante avec un click droit.",
             "Déplacez-vous en maintenant le click gauche et zoomez avec la molette. (Continuez avec un click droit)"
@@ -16,9 +16,9 @@ class BootStep(Step, ABC):
         self.current_line = 0
 
     def next_step(self):
-        return SpeedPigeonStep()
+        return SpeedPigeonStep(self.rifle, self.pigeon)
 
-    def update(self, screen, mouse_position, time, rifle, pigeon):
+    def update(self, screen, mouse_position, time):
         if self.is_done:
             return
 
