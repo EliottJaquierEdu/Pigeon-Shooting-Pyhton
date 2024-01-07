@@ -19,10 +19,10 @@ class SpeedPigeonStep(Step, ABC):
         if self.is_done:
             return
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)
-        if(mouse_position_vector_space[0] < 0):
+        if (mouse_position_vector_space[0] < 0):
             mouse_position_vector_space[0] = 0
-        self.pigeon.speed = math.sqrt(mouse_position_vector_space[0])*3.5
-        if(self.pigeon.speed < 2):
+        self.pigeon.speed = math.sqrt(mouse_position_vector_space[0]) * 3.5
+        if (self.pigeon.speed < 2):
             self.pigeon.speed = 2
 
         self.is_valid = 100 > self.pigeon.speed
@@ -34,4 +34,5 @@ class SpeedPigeonStep(Step, ABC):
             self._is_done = True
 
     def step_description(self):
-        return "Changez la vitesse du pigeon avec votre souris et valider la vitesse ("+str(round(self.pigeon.speed, 1))+" m/s) avec un click droit"
+        return "Changez la vitesse du pigeon avec votre souris et valider la vitesse (" + str(
+            round(self.pigeon.speed, 1)) + " m/s) avec un click droit"

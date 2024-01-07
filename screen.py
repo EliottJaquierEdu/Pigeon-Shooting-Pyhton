@@ -45,8 +45,6 @@ class PyGameScalableGraphScreen:
         for graph_line in self.graph_lines:
             lines = graph_line.get_lines(self.convert_vector_to_screen, self.force_lines_refresh)
             pygame.draw.lines(self.screen, graph_line.color, False, lines, graph_line.line_width)
-            for i in range(5):
-                pygame.draw.circle(self.screen, "blue", graph_line.get_point(i, self.convert_vector_to_screen), 7)
 
         self.force_lines_refresh = False
 

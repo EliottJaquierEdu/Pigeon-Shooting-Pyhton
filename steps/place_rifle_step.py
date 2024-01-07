@@ -31,4 +31,5 @@ class PlaceRifleStep(Step, ABC):
             self._is_done = True
 
     def step_description(self):
-        return "Placez le fusil en dessous du pigeon (x : "+str(round(self.rifle.start_x, 1))+" m  y : "+str(round(self.rifle.start_y, 1))+" m)"
+        return "Placez le fusil en dessous du pigeon (x : " + str(round(self.rifle.start_x, 1)) + " m  y : " + str(
+            round(self.rifle.start_y, 1)) + " m)"

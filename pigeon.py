@@ -25,7 +25,8 @@ class Pigeon(ObjectGraphLine, ABC):
         return self.start_x + math.cos(math.radians(self.angle)) * self.speed * t
 
     def y(self, t):
-        return self.start_y + math.sin(math.radians(self.angle)) * self.speed * t + (self.acceleration / 2) * math.pow(t, 2)
+        return self.start_y + math.sin(math.radians(self.angle)) * self.speed * t + (self.acceleration / 2) * math.pow(
+            t, 2)
 
     def get_point(self, t, space_conversion_fn, x_offset=0, y_offset=0):
         if t < 0:
@@ -49,12 +50,12 @@ class Pigeon(ObjectGraphLine, ABC):
         return (x - self.start_x) / (math.cos(math.radians(self.angle)) * self.speed)
 
     def time_when_zeros(self, y_offset=0):
-        c = self.start_y+y_offset
+        c = self.start_y + y_offset
         b = math.sin(math.radians(self.angle)) * self.speed
         a = - (9.81 / 2)
         delta = math.pow(b, 2) - 4 * a * c
         if (delta < 0):
-            #There are no zeros for this function on pigeon so use the max height
+            # There are no zeros for this function on pigeon so use the max height
             top = (-b) / (2 * a)
             return [top, top]
         t1 = (-b + math.sqrt(delta)) / (2 * a)
@@ -65,12 +66,12 @@ class Pigeon(ObjectGraphLine, ABC):
         images_to_draw = []
         random.seed(1)
         if (t > t_when_impact):
-            #Draw fragments with a little offset (not physically based)
+            # Draw fragments with a little offset (not physically based)
             for fragment in self.image_fragments:
                 debris_speed = 10
-                x_rand = (random.random()-0.5)
-                y_rand = (random.random()-0.5)
-                #Approximation of landing time
+                x_rand = (random.random() - 0.5)
+                y_rand = (random.random() - 0.5)
+                # Approximation of landing time
                 zeros = self.time_when_zeros()
                 t_landing = max(zeros[0], zeros[1])
                 max_t_after_impact = min(t, t_landing) - t_when_impact

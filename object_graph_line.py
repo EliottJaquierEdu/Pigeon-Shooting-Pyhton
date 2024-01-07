@@ -1,6 +1,7 @@
-from abc import abstractmethod, ABC
+from abc import ABC
 
 import utils
+
 
 class ObjectGraphLine(ABC):
     def __init__(self, color, line_width, min_time, max_time, samples):

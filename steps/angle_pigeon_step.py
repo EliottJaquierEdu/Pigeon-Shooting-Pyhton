@@ -30,6 +30,5 @@ class AnglePigeonStep(Step, ABC):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             self._is_done = True
 
-
     def step_description(self):
-        return "Choissisez l'angle ("+str(round(self.pigeon.angle, 1))+"°) du pigeon"
+        return "Choissisez l'angle (" + str(round(self.pigeon.angle, 1)) + "°) du pigeon"

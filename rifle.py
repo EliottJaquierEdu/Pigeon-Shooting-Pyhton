@@ -31,7 +31,7 @@ class Rifle(ObjectGraphLine, ABC):
     def get_point(self, t, space_conversion_fn):
         if t < self.wait_time:
             t = self.wait_time
-        return super().get_point(t,space_conversion_fn)
+        return super().get_point(t, space_conversion_fn)
 
     def play_audio(self, t, raw_game_time, sample_rate):
         deltaTime = raw_game_time - self.last_raw_game_time
@@ -39,7 +39,7 @@ class Rifle(ObjectGraphLine, ABC):
         if (t == self.last_t): return
 
         if (t > 0) and (t < self.shoot_audio.get_length()):
-            sample = 1/sample_rate
+            sample = 1 / sample_rate
             if (deltaTime > sample):
                 self.last_raw_game_time = raw_game_time
 
@@ -121,4 +121,4 @@ class Rifle(ObjectGraphLine, ABC):
         points = self.get_point(t, space_conversion_fn)
         points[0] = points[0] - (self.image.get_width() / 2)
         points[1] = points[1] - (self.image.get_height() / 2)
-        display.blit(pygame.transform.rotate(self.image, self.angle-90), points)
+        display.blit(pygame.transform.rotate(self.image, self.angle - 90), points)

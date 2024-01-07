@@ -30,6 +30,5 @@ class AngleRifleStep(Step, ABC):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:
             self._is_done = True
 
-
     def step_description(self):
-        return "Choissisez l'angle ("+str(round(self.rifle.angle, 1))+"°) du tir"
+        return "Choissisez l'angle (" + str(round(self.rifle.angle, 1)) + "°) du tir"

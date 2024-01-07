@@ -13,10 +13,11 @@ class Step:
         pass
 
     def on_hud(self, surface, width, height, draw_text_function, default_font, default_color):
-        draw_text_function(surface,default_font, self.step_description(),default_color, width / 2, 48)
+        draw_text_function(surface, default_font, self.step_description(), default_color, width / 2, 48)
 
     def get_string_from_vector(self, vector, unit, ndigits):
-        return "x = " + str(round(vector[0], ndigits)) + " " + unit + " ,  y = " + str(round(vector[1], ndigits)) + " " + unit
+        return "x = " + str(round(vector[0], ndigits)) + " " + unit + " ,  y = " + str(
+            round(vector[1], ndigits)) + " " + unit
 
     @abstractmethod
     def handle_event(self, event):

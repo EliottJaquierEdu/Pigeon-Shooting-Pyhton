@@ -1,5 +1,3 @@
-import math
-
 import pygame
 
 from graph_axis import GraphAxis
@@ -8,7 +6,6 @@ from pigeon import Pigeon
 from rifle import Rifle
 from screen import PyGameScalableGraphScreen
 from steps.boot_step import BootStep
-from steps.simlulate_time_with_mouse_step import SimulateTimeWithMouseStep
 
 
 class GameManager:
@@ -29,11 +26,12 @@ class GameManager:
         self.screen.add_axe(GraphAxis("width", "meters", "black", pygame.Color(89, 120, 180), 25, False))
         self.screen.add_axe(GraphAxis("height", "meters", "black", pygame.Color(89, 120, 180), 25, True))
 
-        self.step = SimulateTimeWithMouseStep(self.rifle, self.pigeon)
+        self.step = BootStep(self.rifle, self.pigeon)
 
         self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
                        pygame.Color(90, 130, 190), self.step)
         self.screen.add_ui(self.hud)
+
     def start(self):
         while not self.done:
             for event in pygame.event.get():  # User did something

@@ -24,7 +24,7 @@ class BootStep(Step, ABC):
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-            if(self.current_line < len(self.lines)-1):
+            if (self.current_line < len(self.lines) - 1):
                 self.current_line += 1
             else:
                 self._is_done = True
