@@ -17,8 +17,8 @@ class GameManager:
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
 
-        self.pigeon = Pigeon("black", 5, 0, 5, 100)
-        self.rifle = Rifle("red", 5, 2)
+        self.pigeon = Pigeon("black", 5, 0, 20, 1000)
+        self.rifle = Rifle("red", 5)
 
         self.screen.add_graph_line(self.pigeon)
         self.screen.add_graph_line(self.rifle)

@@ -4,10 +4,10 @@ from abc import ABC
 
 import pygame.image
 
-from object_graph_line import ObjectGraphLine
+from graph_line import GraphLine
 
 
-class Pigeon(ObjectGraphLine, ABC):
+class Pigeon(GraphLine, ABC):
     def __init__(self, color, line_width, min_time, max_time, samples):
         super().__init__(color, line_width, min_time, max_time, samples)
         self.start_x = 0

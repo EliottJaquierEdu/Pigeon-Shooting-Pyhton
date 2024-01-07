@@ -3,12 +3,12 @@ from abc import ABC
 
 import pygame.mixer
 
-from object_graph_line import ObjectGraphLine
+from graph_line import GraphLine
 
 
-class Rifle(ObjectGraphLine, ABC):
-    def __init__(self, color, line_width, samples):
-        super().__init__(color, line_width, 0, 1, samples)
+class Rifle(GraphLine, ABC):
+    def __init__(self, color, line_width):
+        super().__init__(color, line_width, 0, 10, 2)
         self.start_x = 5
         self.start_y = 2
         self.speed = 200
@@ -55,7 +55,7 @@ class Rifle(ObjectGraphLine, ABC):
 
     def get_lines(self, space_conversion_fn, force_refresh=False):
         self.min_time = self.wait_time
-        self.max_time = self.wait_time + 1
+        self.max_time = self.wait_time + 10
         return super().get_lines(space_conversion_fn, force_refresh)
 
     def time_intersecting_with_pigeon(self, pigeon):

@@ -1,9 +1,11 @@
 from abc import ABC
 
+import pygame
+
 import utils
 
 
-class ObjectGraphLine(ABC):
+class GraphLine(ABC):
     def __init__(self, color, line_width, min_time, max_time, samples):
         self._min_time = min_time
         self._max_time = max_time
@@ -43,6 +45,10 @@ class ObjectGraphLine(ABC):
 
     def get_point(self, t, space_conversion_fn):
         return space_conversion_fn([self.x(t), self.y(t)])
+
+    def draw_point_in_time(self, surface, space_conversion_fn, color, radius):
+        for i in range(round(((self._max_time+0.09) - self._min_time) * 10)):
+            pygame.draw.circle(surface, color, self.get_point(self._min_time + i / 10, space_conversion_fn),radius if (i % 10 == 0) else radius / 1.5)
 
     def get_lines(self, space_conversion_fn, force_refresh=False):
         if not (self._need_refresh or force_refresh):

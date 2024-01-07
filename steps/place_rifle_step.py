@@ -25,6 +25,7 @@ class PlaceRifleStep(Step, ABC):
         self.is_valid = max_height > self.rifle.start_y > 0 and self.rifle.start_x > 0
 
         self.rifle.color = "Black" if self.is_valid else "Red"
+        self.rifle.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white" if self.is_valid else "Red", 7)
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:
