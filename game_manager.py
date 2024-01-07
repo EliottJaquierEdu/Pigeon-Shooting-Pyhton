@@ -29,7 +29,7 @@ class GameManager:
         self.screen.add_axe(GraphAxis("width", "meters", "black", pygame.Color(89, 120, 180), 25, False))
         self.screen.add_axe(GraphAxis("height", "meters", "black", pygame.Color(89, 120, 180), 25, True))
 
-        self.step = BootStep(self.rifle, self.pigeon)
+        self.step = SimulateTimeWithMouseStep(self.rifle, self.pigeon)
 
         self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
                        pygame.Color(90, 130, 190), self.step)

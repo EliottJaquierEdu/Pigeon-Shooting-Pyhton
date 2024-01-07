@@ -22,10 +22,12 @@ class PyGameScalableGraphScreen:
         self.last_mouse_position = [0, 0]
 
     def convert_vector_to_screen(self, vector):
-        return [vector[0] * self.graph_size + self.offset[0], self.height - vector[1] * self.graph_size + self.offset[1]]
+        return [vector[0] * self.graph_size + self.offset[0],
+                self.height - vector[1] * self.graph_size + self.offset[1]]
 
     def convert_screen_to_vector(self, screen_vector):
-        return [(screen_vector[0] - self.offset[0]) / self.graph_size, ((self.height-screen_vector[1]) + self.offset[1]) / self.graph_size]
+        return [(screen_vector[0] - self.offset[0]) / self.graph_size,
+                ((self.height - screen_vector[1]) + self.offset[1]) / self.graph_size]
 
     def add_graph_line(self, graph_line):
         self.graph_lines.append(graph_line)
@@ -33,7 +35,7 @@ class PyGameScalableGraphScreen:
     def add_ui(self, ui):
         self.ui.append(ui)
 
-    def add_axe(self,axe):
+    def add_axe(self, axe):
         self.axes.append(axe)
 
     def clear(self):
