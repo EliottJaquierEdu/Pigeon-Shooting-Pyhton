@@ -8,6 +8,10 @@ from steps.step import Step
 
 
 class AnglePigeonStep(Step, ABC):
+    def __init__(self, rifle, pigeon):
+        super().__init__(rifle, pigeon)
+        self.is_valid = False
+
     def next_step(self):
         return PlaceRifleStep(self.rifle, self.pigeon)
 
@@ -18,13 +22,12 @@ class AnglePigeonStep(Step, ABC):
 
         mouse_relative_position = [mouse_position[0] - start_pigeon_point[0], mouse_position[1] - start_pigeon_point[1]]
         angle = -math.atan2(mouse_relative_position[1], mouse_relative_position[0])
-        self.value = math.degrees(angle)
-        if self.value > 89:
-            self.value = 89
-        if self.value < 0:
-            self.value = 0
+        self.pigeon.angle = math.degrees(angle)
+        if self.pigeon.angle > 89:
+            self.pigeon.angle = 89
+        if self.pigeon.angle < 0:
+            self.pigeon.angle = 0
 
-        self.pigeon.angle = self.value
         self.pigeon.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white", 7)
 
     def handle_event(self, event):
