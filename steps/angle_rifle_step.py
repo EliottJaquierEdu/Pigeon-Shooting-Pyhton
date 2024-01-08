@@ -23,7 +23,7 @@ class AngleRifleStep(Step, ABC):
         mouse_relative_position = [mouse_position[0] - start_rifle_point[0], mouse_position[1] - start_rifle_point[1]]
         angle = -math.atan2(mouse_relative_position[1], mouse_relative_position[0])
         self.rifle.angle = math.degrees(angle)
-        self.is_valid = self.rifle.angle >= 0
+        self.is_valid = self.rifle.angle >= 0 and not(86 < self.rifle.angle < 90.1)
         self.rifle.color = "Black" if self.is_valid else "Red"
         self.rifle.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white" if self.is_valid else "Red", 7)
 

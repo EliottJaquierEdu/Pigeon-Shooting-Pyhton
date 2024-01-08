@@ -15,21 +15,29 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.done = False
 
-        self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, pygame.Color(100, 150, 200))
+        sky = pygame.Color(43, 149, 199)
+        blue = pygame.Color(31, 114, 153)
+        dark = pygame.Color(12, 43, 57)
+        hud = pygame.Color(25, 95, 128)
+        hud = pygame.Color(102,172,204)
+        title = pygame.Color(25, 37, 50)
+        text = pygame.Color(10, 38, 51)
+        ground = pygame.Color(75, 29, 4)
 
-        self.pigeon = Pigeon("black", 5, 0, 20, 1000)
-        self.rifle = Rifle("red", 5)
+        self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, sky)
+
+        self.pigeon = Pigeon(dark, 5, 0, 20, 1000)
+        self.rifle = Rifle(dark, 5)
 
         self.screen.add_graph_line(self.pigeon)
         self.screen.add_graph_line(self.rifle)
 
-        self.screen.add_axe(GraphAxis("width", "meters", "black", pygame.Color(89, 120, 180), 25, False))
-        self.screen.add_axe(GraphAxis("height", "meters", "black", pygame.Color(89, 120, 180), 25, True))
+        self.screen.add_axe(GraphAxis("width", "meters", dark, blue, 25, False))
+        self.screen.add_axe(GraphAxis("height", "meters", dark, blue, 25, True))
 
         self.step = BootStep(self.rifle, self.pigeon)
 
-        self.hud = HUD("Tire au pigeon d'argile", pygame.Color(25, 37, 50), pygame.Color(6, 8, 12),
-                       pygame.Color(90, 130, 190), self.step)
+        self.hud = HUD("Tire au pigeon d'argile", title, text, hud, self.step)
         self.screen.add_ui(self.hud)
 
     def start(self):
