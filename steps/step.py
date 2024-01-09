@@ -1,5 +1,7 @@
 from abc import abstractmethod
 
+import pygame
+
 
 class Step:
     def __init__(self, rifle, pigeon):
@@ -7,17 +9,17 @@ class Step:
         self.previous_step = None
         self.rifle = rifle
         self.pigeon = pigeon
+        self.last_mouse_position = []
 
-    @abstractmethod
     def update(self, screen, mouse_position, time):
-        pass
+        self.last_mouse_position = mouse_position
 
     def on_hud(self, surface, width, height, draw_text_function, default_font, default_color):
         draw_text_function(surface, default_font, self.step_description(), default_color, width / 2, 48)
 
-    @abstractmethod
     def handle_event(self, event):
-        pass
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            self._is_done = True
 
     @abstractmethod
     def step_description(self):

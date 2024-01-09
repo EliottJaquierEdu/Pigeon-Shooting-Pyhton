@@ -23,6 +23,7 @@ class PlaceRifleStep(Step, ABC):
     def update(self, screen, mouse_position, time):
         if self.is_done:
             return
+        super().update(screen, mouse_position, time)
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)
         self.rifle.start_x = mouse_position_vector_space[0]
         self.rifle.start_y = mouse_position_vector_space[1]
@@ -34,6 +35,7 @@ class PlaceRifleStep(Step, ABC):
         self.rifle.points_color = self.initial_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
+        super().handle_event(event)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:
             self._is_done = True
 

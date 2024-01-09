@@ -25,6 +25,7 @@ class SimulateTimeWithMouseStep(Step, ABC):
     def update(self, screen, mouse_position, playtime):
         if self.is_done:
             return
+        super().update(screen, mouse_position, playtime)
         mouse_position_vector_space = screen.convert_screen_to_vector(mouse_position)
         self.time = self.pigeon.t(mouse_position_vector_space[0])
         if self.is_auto_simulating:
@@ -47,6 +48,7 @@ class SimulateTimeWithMouseStep(Step, ABC):
         self.debug_bar.draw(screen, draw_text_function, default_font, default_color, self.pigeon, self.rifle, self.time, self.intersecting_time, self.is_playing_audio, self.is_auto_simulating)
 
     def handle_event(self, event):
+        super().handle_event(event)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             self.is_auto_simulating = not self.is_auto_simulating
 

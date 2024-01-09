@@ -24,6 +24,7 @@ class AngleRifleStep(Step, ABC):
     def update(self, screen, mouse_position, time):
         if self.is_done:
             return
+        super().update(screen, mouse_position, time)
         start_rifle_point = self.rifle.get_point(self.rifle.wait_time, screen.convert_vector_to_screen)
 
         mouse_relative_position = [mouse_position[0] - start_rifle_point[0], mouse_position[1] - start_rifle_point[1]]
@@ -34,6 +35,7 @@ class AngleRifleStep(Step, ABC):
         self.rifle.points_color = self.initial_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
+        super().handle_event(event)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:
             self._is_done = True
 

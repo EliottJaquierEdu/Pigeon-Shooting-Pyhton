@@ -22,6 +22,7 @@ class AnglePigeonStep(Step, ABC):
     def update(self, screen, mouse_position, time):
         if self.is_done:
             return
+        super().update(screen, mouse_position, time)
         start_pigeon_point = self.pigeon.get_point(0, screen.convert_vector_to_screen)
 
         mouse_relative_position = [mouse_position[0] - start_pigeon_point[0], mouse_position[1] - start_pigeon_point[1]]
@@ -33,6 +34,7 @@ class AnglePigeonStep(Step, ABC):
             self.pigeon.angle = 0
 
     def handle_event(self, event):
+        super().handle_event(event)
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             self._is_done = True
 
