@@ -35,12 +35,8 @@ class SimulateTimeWithMouseStep(Step, ABC):
         if self.is_playing_audio:
             self.rifle.play_audio(self.time, playtime, 1 if self.is_auto_simulating else 20)
 
-        if self.debug_bar.is_visible:
-            self.pigeon.draw_point_in_time(screen.screen, screen.convert_vector_to_screen,
-                                          "white", 7)
-
-            self.rifle.draw_point_in_time(screen.screen, screen.convert_vector_to_screen,
-                                          "white", 7)
+        self.rifle.is_points_drawn = self.debug_bar.is_visible
+        self.pigeon.is_points_drawn = self.debug_bar.is_visible
 
         self.pigeon.draw_image_representation(screen.screen, self.time, self.intersecting_time,
                                               screen.convert_vector_to_screen)

@@ -7,13 +7,16 @@ from objects.drawable_objet import DrawableObject
 
 
 class GraphLine(ABC, DrawableObject):
-    def __init__(self, color, line_width, min_time, max_time, samples):
+    def __init__(self, color, line_width, min_time, max_time, samples, points_color, points_radius):
         super().__init__()
         self._min_time = min_time
         self._max_time = max_time
         self._samples = samples
         self.color = color
         self.line_width = line_width
+        self.points_color = points_color
+        self.points_radius = points_radius
+        self.is_points_drawn = False
 
         self._need_refresh = True
 
@@ -55,11 +58,6 @@ class GraphLine(ABC, DrawableObject):
     def get_point(self, t, space_conversion_fn):
         return space_conversion_fn([self.x(t), self.y(t)])
 
-    def draw_point_in_time(self, surface, space_conversion_fn, color, radius):
-        for i in range(round(((self._max_time + 0.09) - self._min_time) * 10)):
-            pygame.draw.circle(surface, color, self.get_point(self._min_time + i / 10, space_conversion_fn),
-                               radius if (i % 10 == 0) else radius / 1.5)
-
     def get_lines(self, space_conversion_fn):
         points = []
         for i in range(self._samples + 1):
@@ -74,3 +72,7 @@ class GraphLine(ABC, DrawableObject):
             return
         lines = self.get_lines(space_conversion_fn)
         pygame.draw.lines(screen, self.color, False, lines, self.line_width)
+        if self.is_points_drawn:
+            for i in range(round(((self._max_time + 0.09) - self._min_time) * 10)):
+                pygame.draw.circle(screen, self.points_color, self.get_point(self._min_time + i / 10, space_conversion_fn),
+                               self.points_radius if (i % 10 == 0) else self.points_radius / 1.75)

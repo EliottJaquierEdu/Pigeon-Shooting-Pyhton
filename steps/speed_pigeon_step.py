@@ -12,8 +12,11 @@ class SpeedPigeonStep(Step, ABC):
         super().__init__(rifle, pigeon)
         self.is_valid = False
         self.initial_color = pigeon.color
+        self.initial_points_color = pigeon.points_color
         rifle.is_drawable = False
+        rifle.is_points_drawn = False
         pigeon.is_drawable = True
+        pigeon.is_points_drawn = True
 
     def next_step(self):
         return AnglePigeonStep(self.rifle, self.pigeon)
@@ -31,7 +34,7 @@ class SpeedPigeonStep(Step, ABC):
         self.is_valid = 100 > self.pigeon.speed
 
         self.pigeon.color = self.initial_color if self.is_valid else "Red"
-        self.pigeon.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white" if self.is_valid else "Red", 7)
+        self.pigeon.points_color = self.initial_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:

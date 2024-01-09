@@ -11,7 +11,9 @@ class AnglePigeonStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
         rifle.is_drawable = False
+        rifle.is_points_drawn = False
         pigeon.is_drawable = True
+        pigeon.is_points_drawn = True
         self.is_valid = False
 
     def next_step(self):
@@ -29,8 +31,6 @@ class AnglePigeonStep(Step, ABC):
             self.pigeon.angle = 89
         if self.pigeon.angle < 0:
             self.pigeon.angle = 0
-
-        self.pigeon.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white", 7)
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:

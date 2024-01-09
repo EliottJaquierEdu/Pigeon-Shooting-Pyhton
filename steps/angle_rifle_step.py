@@ -11,9 +11,12 @@ class AngleRifleStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
         rifle.is_drawable = True
+        rifle.is_points_drawn = True
         pigeon.is_drawable = True
+        pigeon.is_points_drawn = False
         self.is_valid = False
         self.initial_color = rifle.color
+        self.initial_points_color = rifle.points_color
 
     def next_step(self):
         return SimulateTimeWithMouseStep(self.rifle, self.pigeon)
@@ -28,7 +31,7 @@ class AngleRifleStep(Step, ABC):
         self.rifle.angle = math.degrees(angle)
         self.is_valid = self.rifle.angle >= 0 and not(86 < self.rifle.angle < 90.1)
         self.rifle.color = self.initial_color if self.is_valid else "Red"
-        self.rifle.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white" if self.is_valid else "Red", 7)
+        self.rifle.points_color = self.initial_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and self.is_valid:

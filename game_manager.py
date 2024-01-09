@@ -23,13 +23,17 @@ class GameManager:
         title = pygame.Color(0, 45, 91)
         text = pygame.Color(0, 22, 45)
         ground = pygame.Color(106, 67, 51)
+
         axis_main_color = pygame.Color(0, 0, 0, 128)
         axis_secondary_color = pygame.Color(0, 0, 0, 32)
+        points_color = pygame.Color(255, 255, 255)
+        points_radius = 7
+        axis_width = 5
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, sky)
 
-        self.pigeon = Pigeon(pigeon, 5, 0, 20, 1000)
-        self.rifle = Rifle(riffle, 5)
+        self.pigeon = Pigeon(pigeon, axis_width, 0, 20, 1000, points_color, points_radius)
+        self.rifle = Rifle(riffle, axis_width, points_color, points_radius)
         self.ground = Ground(ground)
 
         self.screen.add_drawable_object(self.ground)
