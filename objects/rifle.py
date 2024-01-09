@@ -3,7 +3,7 @@ from abc import ABC
 
 import pygame.mixer
 
-from graph_line import GraphLine
+from objects.graph_line import GraphLine
 
 
 class Rifle(GraphLine, ABC):
@@ -53,10 +53,10 @@ class Rifle(GraphLine, ABC):
 
         self.last_t = t
 
-    def get_lines(self, space_conversion_fn, force_refresh=False):
+    def get_lines(self, space_conversion_fn):
         self.min_time = self.wait_time
         self.max_time = self.wait_time + 10
-        return super().get_lines(space_conversion_fn, force_refresh)
+        return super().get_lines(space_conversion_fn)
 
     def time_intersecting_with_pigeon(self, pigeon):
         sx = self.start_x

@@ -11,11 +11,10 @@ class PyGameScalableGraphScreen:
         self.screen = pygame.display.set_mode([width, height], RESIZABLE)
         pygame.display.set_caption(caption)
 
-        self.graph_lines = []
+        self.drawable_objects = []
         self.axes = []
         self.ui = []
 
-        self.force_lines_refresh = False
         self.dragging = False
         self.graph_size = initial_graph_size
         self.offset = [0, 0]
@@ -29,8 +28,8 @@ class PyGameScalableGraphScreen:
         return [(screen_vector[0] - self.offset[0]) / self.graph_size,
                 ((self.height - screen_vector[1]) + self.offset[1]) / self.graph_size]
 
-    def add_graph_line(self, graph_line):
-        self.graph_lines.append(graph_line)
+    def add_drawable_object(self, graph_line):
+        self.drawable_objects.append(graph_line)
 
     def add_ui(self, ui):
         self.ui.append(ui)
@@ -42,14 +41,10 @@ class PyGameScalableGraphScreen:
         self.screen.fill(self.background_color)
 
     def render(self):
-        for graph_line in self.graph_lines:
-            lines = graph_line.get_lines(self.convert_vector_to_screen, self.force_lines_refresh)
-            pygame.draw.lines(self.screen, graph_line.color, False, lines, graph_line.line_width)
-
-        self.force_lines_refresh = False
+        for drawable_object in self.drawable_objects:
+            drawable_object.draw(self.screen, self.width, self.height, self.convert_vector_to_screen)
 
         infos = self.get_chunks_resolution_infos()
-
         for axe in self.axes:
             axe.draw(self.screen, self.width, self.height, self.offset[0], self.offset[1], infos[0], infos[1])
 
@@ -75,7 +70,6 @@ class PyGameScalableGraphScreen:
         if event.type == pygame.VIDEORESIZE:
             self.width = event.w
             self.height = event.h
-            self.force_lines_refresh = True
         if event.type == pygame.MOUSEWHEEL:
             self.graph_size += event.y * self.graph_size / 10
         if event.type == pygame.MOUSEBUTTONDOWN:

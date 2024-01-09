@@ -4,7 +4,7 @@ from abc import ABC
 
 import pygame.image
 
-from graph_line import GraphLine
+from objects.graph_line import GraphLine
 
 
 class Pigeon(GraphLine, ABC):

@@ -1,9 +1,10 @@
 import pygame
 
-from graph_axis import GraphAxis
+from objects.graph_axis import GraphAxis
 from hud import HUD
-from pigeon import Pigeon
-from rifle import Rifle
+from objects.ground import Ground
+from objects.pigeon import Pigeon
+from objects.rifle import Rifle
 from screen import PyGameScalableGraphScreen
 from steps.boot_step import BootStep
 
@@ -28,9 +29,11 @@ class GameManager:
 
         self.pigeon = Pigeon(dark, 5, 0, 20, 1000)
         self.rifle = Rifle(dark, 5)
+        self.ground = Ground(ground)
 
-        self.screen.add_graph_line(self.pigeon)
-        self.screen.add_graph_line(self.rifle)
+        self.screen.add_drawable_object(self.ground)
+        self.screen.add_drawable_object(self.pigeon)
+        self.screen.add_drawable_object(self.rifle)
 
         self.screen.add_axe(GraphAxis("width", "meters", dark, blue, 25, False))
         self.screen.add_axe(GraphAxis("height", "meters", dark, blue, 25, True))

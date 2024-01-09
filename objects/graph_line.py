@@ -1,19 +1,20 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 import pygame
 
 import utils
+from objects.drawable_objet import DrawableObject
 
 
-class GraphLine(ABC):
+class GraphLine(ABC, DrawableObject):
     def __init__(self, color, line_width, min_time, max_time, samples):
+        super().__init__()
         self._min_time = min_time
         self._max_time = max_time
         self._samples = samples
         self.color = color
         self.line_width = line_width
 
-        self._cached_line_points = []
         self._need_refresh = True
 
     @property
@@ -43,22 +44,33 @@ class GraphLine(ABC):
         self._samples = new_samples
         self._need_refresh = True
 
+    @abstractmethod
+    def x(self, t):
+        pass
+
+    @abstractmethod
+    def y(self, t):
+        pass
+
     def get_point(self, t, space_conversion_fn):
         return space_conversion_fn([self.x(t), self.y(t)])
 
     def draw_point_in_time(self, surface, space_conversion_fn, color, radius):
-        for i in range(round(((self._max_time+0.09) - self._min_time) * 10)):
-            pygame.draw.circle(surface, color, self.get_point(self._min_time + i / 10, space_conversion_fn),radius if (i % 10 == 0) else radius / 1.5)
+        for i in range(round(((self._max_time + 0.09) - self._min_time) * 10)):
+            pygame.draw.circle(surface, color, self.get_point(self._min_time + i / 10, space_conversion_fn),
+                               radius if (i % 10 == 0) else radius / 1.5)
 
-    def get_lines(self, space_conversion_fn, force_refresh=False):
-        if not (self._need_refresh or force_refresh):
-            self._need_refresh = False
-            return self._cached_line_points
-
-        self._cached_line_points.clear()
+    def get_lines(self, space_conversion_fn):
+        points = []
         for i in range(self._samples + 1):
             percentage = i / self._samples
             time = utils.lerp(self._min_time, self._max_time, percentage)
             point = self.get_point(time, space_conversion_fn)
-            self._cached_line_points.append(point)
-        return self._cached_line_points
+            points.append(point)
+        return points
+
+    def draw(self, screen, width, height, space_conversion_fn):
+        if not self.is_drawable:
+            return
+        lines = self.get_lines(space_conversion_fn)
+        pygame.draw.lines(screen, self.color, False, lines, self.line_width)
