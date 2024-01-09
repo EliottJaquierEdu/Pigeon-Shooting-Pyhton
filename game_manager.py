@@ -1,7 +1,7 @@
 import pygame
 
 from objects.graph_axis import GraphAxis
-from hud import HUD
+from ui.hud import HUD
 from objects.ground import Ground
 from objects.pigeon import Pigeon
 from objects.rifle import Rifle
