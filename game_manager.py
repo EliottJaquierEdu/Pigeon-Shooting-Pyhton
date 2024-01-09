@@ -16,13 +16,13 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.done = False
 
-        sky = pygame.Color(78, 143, 209)
+        sky = pygame.Color(120, 173, 226)
         pigeon = pygame.Color(0, 45, 91)
-        riffle = pygame.Color(255, 158, 120)
+        riffle = pygame.Color(142, 40, 0)
         hud = pygame.Color(168, 211, 255)
         title = pygame.Color(0, 45, 91)
         text = pygame.Color(0, 22, 45)
-        ground = pygame.Color(86, 53, 40)
+        ground = pygame.Color(106, 67, 51)
         axis_main_color = pygame.Color(0, 0, 0, 128)
         axis_secondary_color = pygame.Color(0, 0, 0, 32)
 

@@ -12,6 +12,9 @@ def no_space_convertion(vector):
 class SimulateTimeWithMouseStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
+        rifle.is_drawable = True
+        pigeon.is_drawable = True
+
         self.is_auto_simulating = False
         self.is_options_panel_visible = False
         self.is_playing_audio = False

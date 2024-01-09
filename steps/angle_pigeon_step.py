@@ -10,6 +10,8 @@ from steps.step import Step
 class AnglePigeonStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
+        rifle.is_drawable = False
+        pigeon.is_drawable = True
         self.is_valid = False
 
     def next_step(self):

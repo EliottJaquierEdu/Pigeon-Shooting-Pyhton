@@ -11,6 +11,9 @@ class SpeedPigeonStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
         self.is_valid = False
+        self.initial_color = pigeon.color
+        rifle.is_drawable = False
+        pigeon.is_drawable = True
 
     def next_step(self):
         return AnglePigeonStep(self.rifle, self.pigeon)
@@ -27,7 +30,7 @@ class SpeedPigeonStep(Step, ABC):
 
         self.is_valid = 100 > self.pigeon.speed
 
-        self.pigeon.color = "Black" if self.is_valid else "Red"
+        self.pigeon.color = self.initial_color if self.is_valid else "Red"
         self.pigeon.draw_point_in_time(screen.screen, screen.convert_vector_to_screen, "white" if self.is_valid else "Red", 7)
 
     def handle_event(self, event):

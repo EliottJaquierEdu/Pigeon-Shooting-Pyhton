@@ -9,6 +9,8 @@ from steps.step import Step
 class BootStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
+        rifle.is_drawable = False
+        pigeon.is_drawable = True
         self.lines = [
             "Bienvenue sur ce programme de tir au pigeon d'argile! Passez à l'étape suivante avec un click droit.",
             "Déplacez-vous en maintenant le click gauche et zoomez avec la molette. (Continuez avec un click droit)"
