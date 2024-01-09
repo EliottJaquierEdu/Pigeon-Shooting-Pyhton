@@ -12,7 +12,8 @@ class GraphAxis:
         self.line_width = 1
         self.line_width_on_ten = 3
 
-    def draw(self, surface, screen_width, screen_height, x_offset, y_offset, mantissa, multiplier):
+    def draw(self, screen, screen_width, screen_height, x_offset, y_offset, mantissa, multiplier):
+        surface = pygame.Surface([screen_width, screen_height], pygame.SRCALPHA)
         lines_width = 20
 
         draw_count = int((screen_height if self.is_vertical else screen_width) / mantissa)
@@ -41,3 +42,5 @@ class GraphAxis:
             surface.blit(text_surface,
                          [x_offset + 10, y_offset - 10 + screen_height + i * mantissa] if self.is_vertical else
                          [x_offset + i * mantissa - 5, -30 + screen_height + y_offset])
+
+        screen.blit(surface, (0, 0))

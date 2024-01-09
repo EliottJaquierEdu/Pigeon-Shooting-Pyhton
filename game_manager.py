@@ -16,27 +16,28 @@ class GameManager:
         self.clock = pygame.time.Clock()
         self.done = False
 
-        sky = pygame.Color(43, 149, 199)
-        blue = pygame.Color(31, 114, 153)
-        dark = pygame.Color(12, 43, 57)
-        hud = pygame.Color(25, 95, 128)
-        hud = pygame.Color(102,172,204)
-        title = pygame.Color(25, 37, 50)
-        text = pygame.Color(10, 38, 51)
-        ground = pygame.Color(75, 29, 4)
+        sky = pygame.Color(78, 143, 209)
+        pigeon = pygame.Color(0, 45, 91)
+        riffle = pygame.Color(255, 158, 120)
+        hud = pygame.Color(168, 211, 255)
+        title = pygame.Color(0, 45, 91)
+        text = pygame.Color(0, 22, 45)
+        ground = pygame.Color(86, 53, 40)
+        axis_main_color = pygame.Color(0, 0, 0, 128)
+        axis_secondary_color = pygame.Color(0, 0, 0, 32)
 
         self.screen = PyGameScalableGraphScreen("Tire au pigeon", 1600, 900, sky)
 
-        self.pigeon = Pigeon(dark, 5, 0, 20, 1000)
-        self.rifle = Rifle(dark, 5)
+        self.pigeon = Pigeon(pigeon, 5, 0, 20, 1000)
+        self.rifle = Rifle(riffle, 5)
         self.ground = Ground(ground)
 
         self.screen.add_drawable_object(self.ground)
         self.screen.add_drawable_object(self.pigeon)
         self.screen.add_drawable_object(self.rifle)
 
-        self.screen.add_axe(GraphAxis("width", "meters", dark, blue, 25, False))
-        self.screen.add_axe(GraphAxis("height", "meters", dark, blue, 25, True))
+        self.screen.add_axe(GraphAxis("width", "meters", axis_main_color, axis_secondary_color, 25, False))
+        self.screen.add_axe(GraphAxis("height", "meters", axis_main_color, axis_secondary_color, 25, True))
 
         self.step = BootStep(self.rifle, self.pigeon)
 
