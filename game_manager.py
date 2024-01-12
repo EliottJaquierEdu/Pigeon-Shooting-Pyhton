@@ -61,13 +61,19 @@ class GameManager:
         mouse_position = pygame.mouse.get_pos()
         self.step.update(self.screen, mouse_position, self.get_playtime())
         if self.step.is_done and (self.step.next_step() is not None):
-            self.step.next_step().previous_step = self.step
+            previous_step = self.step
             self.step = self.step.next_step()
+            self.step.previous_step = previous_step
             self.hud.step = self.step
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:  # If user clicked close
             self.done = True  # Flag that we are done so we exit this loop
+            
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.step.previous_step is not None:
+            mouse_position = pygame.mouse.get_pos()
+            if 6 < mouse_position[0] < (48 + 12) and 6 < mouse_position[1] < (48 + 12):
+                self.step = self.step.previous_step
 
         self.step.handle_event(event)
         self.screen.handle_event(event)

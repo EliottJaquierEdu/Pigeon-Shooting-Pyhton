@@ -17,9 +17,9 @@ class Step:
     def on_hud(self, surface, width, height, draw_text_function, default_font, default_color):
         draw_text_function(surface, default_font, self.step_description(), default_color, width / 2, 48)
 
+    @abstractmethod
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            self._is_done = True
+        pass
 
     @abstractmethod
     def step_description(self):
