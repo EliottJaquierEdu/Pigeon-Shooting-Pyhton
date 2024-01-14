@@ -71,7 +71,15 @@ class PyGameScalableGraphScreen:
             self.width = event.w
             self.height = event.h
         if event.type == pygame.MOUSEWHEEL:
-            self.graph_size += event.y * self.graph_size / 10
+            last_graph_size = self.graph_size
+            size_delta = event.y * self.graph_size / 10
+            self.graph_size += size_delta
+            delta = self.graph_size / last_graph_size
+
+            center_point = [(self.width / 2), (self.height / 2)]
+
+            self.offset[0] = (self.offset[0] - center_point[0]) * delta + center_point[0]
+            self.offset[1] = (self.offset[1] + center_point[1]) * delta - center_point[1]
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.dragging = True
             self.last_mouse_position = pygame.mouse.get_pos()
