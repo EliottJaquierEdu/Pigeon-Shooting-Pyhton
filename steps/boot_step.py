@@ -19,6 +19,7 @@ class BootStep(Step, ABC):
         self.current_line = 0
         self.rifle.is_drawable = False
         self.pigeon.is_drawable = True
+        self.pigeon.color = self.pigeon.default_color
         self.rifle.is_points_drawn = False
         self.pigeon.is_points_drawn = False
 

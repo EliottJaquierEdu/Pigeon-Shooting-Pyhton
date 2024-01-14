@@ -8,11 +8,6 @@ from steps.step import Step
 
 
 class SpeedPigeonStep(Step, ABC):
-    def __init__(self, rifle, pigeon):
-        super().__init__(rifle, pigeon)
-        self.initial_color = pigeon.color
-        self.initial_points_color = pigeon.points_color
-
     def reset(self):
         super().reset()
         self.is_valid = False
@@ -37,8 +32,8 @@ class SpeedPigeonStep(Step, ABC):
 
         self.is_valid = 100 > self.pigeon.speed
 
-        self.pigeon.color = self.initial_color if self.is_valid else "Red"
-        self.pigeon.points_color = self.initial_points_color if self.is_valid else "Red"
+        self.pigeon.color = self.pigeon.default_color if self.is_valid else "Red"
+        self.pigeon.points_color = self.pigeon.default_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
         super().handle_event(event)

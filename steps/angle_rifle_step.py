@@ -34,8 +34,8 @@ class AngleRifleStep(Step, ABC):
         angle = -math.atan2(mouse_relative_position[1], mouse_relative_position[0])
         self.rifle.angle = math.degrees(angle)
         self.is_valid = self.rifle.angle >= 0 and not(86 < self.rifle.angle < 90.1)
-        self.rifle.color = self.initial_color if self.is_valid else "Red"
-        self.rifle.points_color = self.initial_points_color if self.is_valid else "Red"
+        self.rifle.color = self.rifle.default_color if self.is_valid else "Red"
+        self.rifle.points_color = self.rifle.default_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
         super().handle_event(event)

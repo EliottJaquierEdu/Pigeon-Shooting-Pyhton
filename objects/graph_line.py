@@ -13,8 +13,10 @@ class GraphLine(ABC, DrawableObject):
         self._max_time = max_time
         self._samples = samples
         self.color = color
+        self.default_color = color
         self.line_width = line_width
         self.points_color = points_color
+        self.default_points_color = points_color
         self.points_radius = points_radius
         self.is_points_drawn = False
 

@@ -7,14 +7,9 @@ from steps.step import Step
 
 
 class PlaceRifleStep(Step, ABC):
-    def __init__(self, rifle, pigeon):
-        super().__init__(rifle, pigeon)
-        self.is_valid = False
-        self.initial_color = rifle.color
-        self.initial_points_color = rifle.points_color
-
     def reset(self):
         super().reset()
+        self.is_valid = False
         self.rifle.is_drawable = True
         self.rifle.is_points_drawn = True
         self.pigeon.is_drawable = True
@@ -34,8 +29,8 @@ class PlaceRifleStep(Step, ABC):
         max_height = self.pigeon.y(self.pigeon.t(self.rifle.start_x))
         self.is_valid = max_height > self.rifle.start_y > 0 and self.rifle.start_x > 0
 
-        self.rifle.color = self.initial_color if self.is_valid else "Red"
-        self.rifle.points_color = self.initial_points_color if self.is_valid else "Red"
+        self.rifle.color = self.rifle.default_color if self.is_valid else "Red"
+        self.rifle.points_color = self.rifle.default_points_color if self.is_valid else "Red"
 
     def handle_event(self, event):
         super().handle_event(event)
