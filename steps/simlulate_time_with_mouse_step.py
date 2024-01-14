@@ -11,13 +11,15 @@ class SimulateTimeWithMouseStep(Step, ABC):
         super().__init__(rifle, pigeon)
         rifle.is_drawable = True
         pigeon.is_drawable = True
+        self.debug_bar = DebugBar()
 
+    def reset(self):
+        super().reset()
         self.is_auto_simulating = False
         self.is_playing_audio = False
         self.time = 0
         self.intersecting_time = self.rifle.time_intersecting_with_pigeon(self.pigeon)
         self.rifle.wait_time = self.rifle.waiting_time_to_intersect(self.pigeon)
-        self.debug_bar = DebugBar()
 
     def next_step(self):
         return None

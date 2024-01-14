@@ -9,13 +9,16 @@ from steps.step import Step
 class PlaceRifleStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
-        rifle.is_drawable = True
-        rifle.is_points_drawn = True
-        pigeon.is_drawable = True
-        pigeon.is_points_drawn = False
         self.is_valid = False
         self.initial_color = rifle.color
         self.initial_points_color = rifle.points_color
+
+    def reset(self):
+        super().reset()
+        self.rifle.is_drawable = True
+        self.rifle.is_points_drawn = True
+        self.pigeon.is_drawable = True
+        self.pigeon.is_points_drawn = False
 
     def next_step(self):
         return AngleRifleStep(self.rifle, self.pigeon)

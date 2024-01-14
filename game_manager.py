@@ -74,6 +74,8 @@ class GameManager:
             mouse_position = pygame.mouse.get_pos()
             if 6 < mouse_position[0] < (48 + 12) and 6 < mouse_position[1] < (48 + 12):
                 self.step = self.step.previous_step
+                self.step.reset()
+                self.hud.step = self.step
 
         self.step.handle_event(event)
         self.screen.handle_event(event)

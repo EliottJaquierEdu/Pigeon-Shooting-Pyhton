@@ -8,12 +8,13 @@ from steps.step import Step
 
 
 class AnglePigeonStep(Step, ABC):
-    def __init__(self, rifle, pigeon):
-        super().__init__(rifle, pigeon)
-        rifle.is_drawable = False
-        rifle.is_points_drawn = False
-        pigeon.is_drawable = True
-        pigeon.is_points_drawn = True
+
+    def reset(self):
+        super().reset()
+        self.rifle.is_drawable = False
+        self.rifle.is_points_drawn = False
+        self.pigeon.is_drawable = True
+        self.pigeon.is_points_drawn = True
         self.is_valid = False
 
     def next_step(self):

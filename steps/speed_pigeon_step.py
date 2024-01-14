@@ -10,13 +10,16 @@ from steps.step import Step
 class SpeedPigeonStep(Step, ABC):
     def __init__(self, rifle, pigeon):
         super().__init__(rifle, pigeon)
-        self.is_valid = False
         self.initial_color = pigeon.color
         self.initial_points_color = pigeon.points_color
-        rifle.is_drawable = False
-        rifle.is_points_drawn = False
-        pigeon.is_drawable = True
-        pigeon.is_points_drawn = True
+
+    def reset(self):
+        super().reset()
+        self.is_valid = False
+        self.rifle.is_drawable = False
+        self.rifle.is_points_drawn = False
+        self.pigeon.is_drawable = True
+        self.pigeon.is_points_drawn = True
 
     def next_step(self):
         return AnglePigeonStep(self.rifle, self.pigeon)

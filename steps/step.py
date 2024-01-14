@@ -5,11 +5,15 @@ import pygame
 
 class Step:
     def __init__(self, rifle, pigeon):
-        self._is_done = False
         self.previous_step = None
         self.rifle = rifle
         self.pigeon = pigeon
         self.last_mouse_position = []
+        self._is_done = False
+        self.reset()
+
+    def reset(self):
+        self._is_done = False
 
     def update(self, screen, mouse_position, time):
         self.last_mouse_position = mouse_position
