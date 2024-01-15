@@ -55,7 +55,7 @@ class DebugBar:
                     "Balle " + self.get_string_from_vector(rifle.get_point(time, no_space_convertion),
                                                            "[m]", 1), default_color, 6, 24 * 10 + 12, 0)
         draw_txt_fn(surface, self.title_font, "Options en plus:", self.title_color, self.box_width / 2, 24 * 12)
-        draw_txt_fn(surface, default_font, "Lecteur en temps rééle (touche espace) : " + (
+        draw_txt_fn(surface, default_font, "Lectur en temps réél (touche espace) : " + (
             "automatique" if is_auto_simulating else "manuelle"), default_color, 6, 24 * 13 + 12, 0)
         draw_txt_fn(surface, default_font,
                     "Sond (touche 's') : " + ("activé" if is_playing_audio else "désactivé"), default_color,
