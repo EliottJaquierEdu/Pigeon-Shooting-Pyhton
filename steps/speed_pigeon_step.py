@@ -15,6 +15,7 @@ class SpeedPigeonStep(Step, ABC):
         self.rifle.is_points_drawn = False
         self.pigeon.is_drawable = True
         self.pigeon.is_points_drawn = True
+        self.pigeon.angle = 60
 
     def next_step(self):
         return AnglePigeonStep(self.rifle, self.pigeon)
